@@ -1,12 +1,18 @@
-import { buttonsText } from "../../lib/constants";
 import Button from "../reusableComponents/Button";
 
-export default function ButtonGroup() {
+export default function ButtonGroup({ secondaryButtonActions }) {
   return (
     <section className="button-group">
-      {buttonsText.map((buttonText, index) => (
-        <Button key={index} buttonText={buttonText} type="secondary" />
-      ))}
+      {secondaryButtonActions.map(({ buttonText, onClick }) => {
+        return (
+          <Button
+            key={buttonText + onClick.toString()}
+            buttonText={buttonText}
+            buttonType="secondary"
+            onClick={onClick}
+          />
+        );
+      })}
     </section>
   );
 }

@@ -1,6 +1,13 @@
-export default function Button({ buttonText, type = "primary" }) {
+export default function Button({
+  buttonText,
+  buttonType = "primary",
+  onClick = () => {},
+}) {
   return (
-    <button className={`btn ${type === "secondary" ? "btn--secondary" : ""}`}>
+    <button
+      onClick={onClick}
+      className={`btn ${buttonType === "secondary" ? "btn--secondary" : ""}`}
+    >
       {buttonText}
     </button>
   );

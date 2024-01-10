@@ -26,6 +26,10 @@ function Item({ id, text, packed, setItems }) {
     );
   };
 
+  const handleDeleteButton = () => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   return (
     <li className="item">
       <label>
@@ -33,7 +37,7 @@ function Item({ id, text, packed, setItems }) {
         {text}
       </label>
 
-      <button>❌</button>
+      <button onClick={handleDeleteButton}>❌</button>
     </li>
   );
 }
