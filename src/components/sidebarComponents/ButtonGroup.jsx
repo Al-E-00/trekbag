@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { ItemsContext } from "../context/ItemsContextProvider";
 import Button from "../reusableComponents/Button";
+import { useItemsContext } from "../../lib/hooks";
 
 export default function ButtonGroup() {
-  const { secondaryButtonActions } = useContext(ItemsContext);
+  const { secondaryButtonActions } = useItemsContext();
   return (
     <section className="button-group">
       {secondaryButtonActions.map(({ buttonText, onClick }) => {
