@@ -19,6 +19,10 @@ function App() {
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
+  const handleDeleteItem = (id) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   const handleMarkAllAsComplete = () => {
     setItems((prevItems) =>
       prevItems.map((item) => ({ ...item, packed: true }))
@@ -58,13 +62,25 @@ function App() {
     },
   ];
 
+  const handleToggleItem = (id) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  };
+
   return (
     <>
       <BackgroundHeading />
 
       <main>
-        <Header />
-        <ItemList items={items} setItems={setItems} />
+        <Header items={items} />
+        <ItemList
+          items={items}
+          handleDeleteItem={handleDeleteItem}
+          handleToggleItem={handleToggleItem}
+        />
         <Sidebar
           handleAddItem={handleAddItem}
           secondaryButtonActions={secondaryButtonActions}

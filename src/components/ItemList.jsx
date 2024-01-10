@@ -1,43 +1,40 @@
-export default function ItemList({ items, setItems }) {
+import EmptyView from "./reusableComponents/EmptyView";
+
+export default function ItemList({
+  items,
+  handleDeleteItem,
+  handleToggleItem,
+}) {
   return (
-    <ul>
+    <ul className="item-list">
+      {items.length === 0 && <EmptyView />}
       {items.map((item) => (
         <Item
           key={item.id}
           id={item.id}
           text={item.name}
           packed={item.packed}
-          setItems={setItems}
+          onDeleteItem={handleDeleteItem}
+          onToggleItem={handleToggleItem}
         />
       ))}
     </ul>
   );
 }
 
-function Item({ id, text, packed, setItems }) {
-  const clickHandle = () => {
-    setItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.id === id) {
-          return { ...item, packed: !item.packed };
-        }
-        return item;
-      })
-    );
-  };
-
-  const handleDeleteButton = () => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
+function Item({ id, text, packed, onDeleteItem, onToggleItem }) {
   return (
     <li className="item">
       <label>
-        <input type="checkbox" checked={packed} onChange={clickHandle} />
+        <input
+          type="checkbox"
+          checked={packed}
+          onChange={() => onToggleItem(id)}
+        />
         {text}
       </label>
 
-      <button onClick={handleDeleteButton}>❌</button>
+      <button onClick={() => onDeleteItem(id)}>❌</button>
     </li>
   );
 }
