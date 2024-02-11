@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Button from "../reusableComponents/Button";
+import { toast } from "react-hot-toast";
 
 export default function AddItemForm({ onAddItem }) {
   const [itemText, setItemText] = useState("");
@@ -9,7 +10,9 @@ export default function AddItemForm({ onAddItem }) {
     e.preventDefault();
 
     if (itemText.trim() === "") {
-      alert("Please enter an item");
+      toast.error("Please enter an item", {
+        duration: 2000,
+      });
       inputRef.current.focus();
       return;
     }
