@@ -1,20 +1,42 @@
 import Button from "../reusableComponents/Button";
-import { useItemsContext } from "../../lib/hooks";
+import { useItemsStore } from "../stores/itemsStore";
 
 export default function ButtonGroup() {
-  const { secondaryButtonActions } = useItemsContext();
+  const secondaryButtonActions = useItemsStore(
+    (state) => state.secondaryButtonActions
+  );
+
+  const {
+    removeAllItems,
+    resetToInitial,
+    markAllComplete,
+    markAllAsIncomplete,
+  } = secondaryButtonActions;
+
+  const secondaryButtons = [
+    {
+      buttonText: "Remove All Items",
+      onClick: removeAllItems,
+    },
+    {
+      buttonText: "Reset to Initial",
+      onClick: resetToInitial,
+    },
+    {
+      buttonText: "Mark All Complete",
+      onClick: markAllComplete,
+    },
+    {
+      buttonText: "Mark All Incomplete",
+      onClick: markAllAsIncomplete,
+    },
+  ];
+
   return (
     <section className="button-group">
-      {secondaryButtonActions.map(({ buttonText, onClick }) => {
-        return (
-          <Button
-            key={buttonText + onClick.toString()}
-            buttonText={buttonText}
-            buttonType="secondary"
-            onClick={onClick}
-          />
-        );
-      })}
+      {secondaryButtons.map(({ buttonText, onClick }) => (
+        <Button buttonText={buttonText} key={buttonText} onClick={onClick} />
+      ))}
     </section>
   );
 }
